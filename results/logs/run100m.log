@@ -1,0 +1,20 @@
+nohup: ignoring input
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[u8_io] base.u8bin                       u8bin   N=100000000 dim=128 (uint8 原生，无需转换)
+[load] base=100000000 dim=128 q=100  14.0 s
+[Config] Alpha=0, Adaptive=0, NormDist=200000, NormDeg=300
+[ckpt] 1000000 点 -> idx/sift100m.idx.ckpt1000000  271 MB  0.88 s
+[ckpt] 10000000 点 -> idx/sift100m.idx.ckpt10000000  2716 MB  8.73 s
+[ckpt] 50000000 点 -> idx/sift100m.idx.ckpt50000000  13580 MB  47.50 s
+[ckpt] 75000000 点 -> idx/sift100m.idx.ckpt75000000  20370 MB  69.93 s
+[build] 189755.7 s  max_level=6 ep=602500
+[ckpt] 100000000 点 -> idx/sift100m.idx  27160 MB  98.24 s
+[mem] base=12207.0 MB index=14572.2 MB sum=26779.2 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 100 x 100000000 暴力 uint8 GT: 742.2 s
+[csr] N=100000000 边条目=1999999978  内存=8010.9 MB (84.0 B/节点)
+[graph] CSR 构建 194.9 s  内存 8010.9 MB
+top degrees: 174 172 171 170 170
+tau=0.7 recall=0.69900 inf=662.28 2.5973 ms  sd=83b46d80bf80029d sel=c6eae0853623f38b
+tau=0.8 recall=0.79600 inf=510.68 2.5251 ms  sd=83b46d80bf80029d sel=4157a05da4d598d6
+tau=0.9 recall=0.89100 inf=358.41 2.7500 ms  sd=83b46d80bf80029d sel=522b8aabb1717e09

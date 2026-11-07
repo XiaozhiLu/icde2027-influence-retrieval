@@ -1,0 +1,24 @@
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  54.67 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50m.bin（100 x 10）
+[graph] CSR 构建 94.0 s  内存 4005.4 MB
+[warmup] 已跑 30 次查询（不计入统计）
+top degrees: 175 169 168 168 167
+baseline ef=300 recall=0.98400 inf=208.41 1.9216 ms  sd=568c8d16d5afe8ab sel=f80765e2d184ea0e
+tau=0.7 ef=300 recall=0.69900 inf=655.77 1.9323 ms  sd=568c8d16d5afe8ab sel=472470b94ce0ccee
+tau=0.8 ef=300 recall=0.79700 inf=506.61 2.0985 ms  sd=568c8d16d5afe8ab sel=028a4f3e59a924bb
+tau=0.9 ef=300 recall=0.89300 inf=358.70 1.9503 ms  sd=568c8d16d5afe8ab sel=12c58b916904ace9
+baseline ef=500 recall=0.99200 inf=208.51 2.7484 ms  sd=76f731da4ec474fc sel=a47bd1b05dc8eefd
+tau=0.7 ef=500 recall=0.70000 inf=655.85 3.1036 ms  sd=76f731da4ec474fc sel=024c2d90b8254395
+tau=0.8 ef=500 recall=0.79900 inf=506.68 2.8420 ms  sd=76f731da4ec474fc sel=b1cff2914e4f21a4
+tau=0.9 ef=500 recall=0.89800 inf=358.74 3.0021 ms  sd=76f731da4ec474fc sel=ea38c4c177cd0b8d
+baseline ef=1000 recall=0.99600 inf=208.51 5.0293 ms  sd=1fba0a8ca4cafde0 sel=db039cd77f7d5f94
+tau=0.7 ef=1000 recall=0.70000 inf=655.84 5.1146 ms  sd=1fba0a8ca4cafde0 sel=2bcaaaebb6460d11
+tau=0.8 ef=1000 recall=0.79900 inf=506.68 5.1596 ms  sd=1fba0a8ca4cafde0 sel=5dc673edcc040b8c
+tau=0.9 ef=1000 recall=0.89800 inf=358.78 5.1103 ms  sd=1fba0a8ca4cafde0 sel=d889e509bfc61419
+baseline ef=2000 recall=0.99800 inf=208.54 9.1269 ms  sd=ea061c2abe4ca409 sel=09e764d3c73e8379
+tau=0.7 ef=2000 recall=0.70000 inf=655.84 9.0663 ms  sd=ea061c2abe4ca409 sel=2bcaaaebb6460d11
+tau=0.8 ef=2000 recall=0.80000 inf=506.67 9.2876 ms  sd=ea061c2abe4ca409 sel=d427a89f7a668673
+tau=0.9 ef=2000 recall=0.89900 inf=358.76 9.1113 ms  sd=ea061c2abe4ca409 sel=94d96f2763430b33

@@ -1,0 +1,9 @@
+﻿bin/
+data/raw/
+data/processed/
+*.bin
+*.idx
+*.ckpt*
+*.o
+*.exe
+.DS_Store

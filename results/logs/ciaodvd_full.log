@@ -1,0 +1,371 @@
+########## A. 四种方法 × K ##########
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 4.0 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+base    K=10 recall=0.98400 inf=29.05 0.191 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+stage1  K=10 recall=0.10950 inf=45.48 0.799 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=10 tau=0.50 recall=0.50000 inf=465.52 0.229 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=10 tau=0.50 recall=0.50000 inf=522.51 0.458 ms 1v1=5.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=10 tau=0.60 recall=0.60000 inf=428.88 0.203 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=10 tau=0.60 recall=0.60000 inf=469.90 0.428 ms 1v1=4.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=10 tau=0.70 recall=0.70000 inf=382.00 0.210 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=10 tau=0.70 recall=0.70000 inf=413.44 0.399 ms 1v1=3.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.6 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=10 tau=0.80 recall=0.79900 inf=328.20 0.216 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=10 tau=0.80 recall=0.79900 inf=337.88 0.372 ms 1v1=2.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 4.5 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=10 tau=0.90 recall=0.89650 inf=224.18 0.213 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-10 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=10 tau=0.90 recall=0.89650 inf=224.29 0.310 ms 1v1=1.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 4.2 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+base    K=20 recall=0.98375 inf=49.91 0.208 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+stage1  K=20 recall=0.10400 inf=44.91 0.919 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=20 tau=0.50 recall=0.50025 inf=544.49 0.255 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=20 tau=0.50 recall=0.50100 inf=724.63 0.768 ms 1v1=10.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=20 tau=0.60 recall=0.60025 inf=513.17 0.244 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=20 tau=0.60 recall=0.60075 inf=657.42 0.593 ms 1v1=8.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 4.2 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=20 tau=0.70 recall=0.70000 inf=491.75 0.228 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=20 tau=0.70 recall=0.70050 inf=574.52 0.539 ms 1v1=6.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=20 tau=0.80 recall=0.80000 inf=435.74 0.218 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=20 tau=0.80 recall=0.80025 inf=477.30 0.477 ms 1v1=4.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=20 tau=0.90 recall=0.89900 inf=338.01 0.208 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-20 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=20 tau=0.90 recall=0.89900 inf=347.83 0.362 ms 1v1=2.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+base    K=50 recall=0.97690 inf=106.31 0.198 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.1 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+stage1  K=50 recall=0.10030 inf=63.01 0.860 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=50 tau=0.50 recall=0.50040 inf=708.47 0.373 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.50 recall=0.50370 inf=1092.79 1.298 ms 1v1=25.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=50 tau=0.60 recall=0.62030 inf=660.95 0.318 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.4 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.60 recall=0.62180 inf=969.61 1.142 ms 1v1=19.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=50 tau=0.70 recall=0.70020 inf=643.17 0.289 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.1 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70080 inf=877.90 0.901 ms 1v1=15.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=50 tau=0.80 recall=0.79990 inf=561.30 0.271 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.80 recall=0.80020 inf=739.14 0.715 ms 1v1=10.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+greedy  K=50 tau=0.90 recall=0.89870 inf=491.19 0.235 ms
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.89890 inf=549.30 0.557 ms 1v1=5.00 2v2=0.00
+########## B. ef 曲线（K=50, tau=0.9）##########
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.87730 inf=548.79 0.387 ms 1v1=5.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.3 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.89890 inf=549.30 0.511 ms 1v1=5.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.90010 inf=550.37 0.772 ms 1v1=5.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.90010 inf=550.21 1.199 ms 1v1=5.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.8 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.90 recall=0.90010 inf=550.20 1.941 ms 1v1=5.00 2v2=0.00
+########## C. ef 曲线（K=50, tau=0.7）##########
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.3 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70040 inf=876.79 0.785 ms 1v1=15.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.0 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70080 inf=877.90 0.914 ms 1v1=15.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.7 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70120 inf=877.15 1.157 ms 1v1=15.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 4.2 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70130 inf=877.17 1.589 ms 1v1=15.00 2v2=0.00
+[load] data/processed/ciaodvd/user_emb.bin  16043x64  (读到 1026752 个 float)
+[load] data/processed/ciaodvd/item_emb.bin  12787x64  (读到 818368 个 float)
+[gt] 暴力计算 3320 个查询的 top-50 ...
+[gt] 完成 3.9 s
+[data] 用户=16043 物品=12787 查询=3320 维度=64
+[index] 建好 16043 个用户
+[csr] 真实信任图 N=16043 边=21400 平均度=2.67 内存=0.2 MB
+ours    K=50 tau=0.70 recall=0.70130 inf=877.17 2.465 ms 1v1=15.00 2v2=0.00

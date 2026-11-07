@@ -1,0 +1,11 @@
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt1000000  1.21 s  N0=1000000 dim=128 max_level=6
+[mem] base=122.1 MB index=145.7 MB sum=267.8 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 100 x 1000000 暴力 uint8 GT: 7.6 s
+[graph] CSR 构建 0.8 s  内存 80.1 MB
+top degrees: 156 156 156 155 155
+baseline recall=0.99800 inf=204.72 0.8944 ms  sd=3acd0153709add16 sel=6e0302a2ad1ca759
+tau=0.7 recall=0.70000 inf=612.29 0.9185 ms  sd=3acd0153709add16 sel=0b64158f80eb4707
+tau=0.8 recall=0.80000 inf=477.31 0.9363 ms  sd=3acd0153709add16 sel=89d40ef923f47ad6
+tau=0.9 recall=0.90000 inf=341.32 0.9012 ms  sd=3acd0153709add16 sel=5125bd91e46a77e4

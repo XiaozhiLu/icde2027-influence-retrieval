@@ -1,0 +1,9 @@
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  55.39 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50m.bin（100 x 10）
+[graph] CSR 构建 89.3 s  内存 4005.4 MB
+s3 tau=0.7 ef=300 lf=30 recall=0.69300 inf=667.00 4.9451 ms swaps=3.00
+s3 tau=0.8 ef=300 lf=30 recall=0.78800 inf=515.76 3.6800 ms swaps=2.00
+s3 tau=0.9 ef=300 lf=30 recall=0.88600 inf=362.34 3.7294 ms swaps=1.00

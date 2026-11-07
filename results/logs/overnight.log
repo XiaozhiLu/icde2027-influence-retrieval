@@ -1,0 +1,197 @@
+########## 1. KuaiRand CTR（原实现，base/ours/merge）##########
+Error: Cannot open /processed_kuairand1k_itemgraph_ctr/user_emb.bin
+########## 2. SIFT K=50 ef 曲线（tau=0.9）##########
+--- 1m ef=500 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt1000000  1.22 s  N0=1000000 dim=128 max_level=6
+[mem] base=122.1 MB index=145.7 MB sum=267.8 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_1m.bin（100 x 50）
+[csr] N=1000000 边条目=19999988  内存=80.1 MB (84.0 B/节点)
+[graph] CSR 构建 0.8 s  内存 80.1 MB
+ours tau=0.7 ef=500 lf=30 recall=0.70000 inf=3011.54 3.4972 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=500 lf=30 recall=0.80000 inf=2350.25 2.6805 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=500 lf=30 recall=0.90000 inf=1680.33 2.0196 ms 1v1=5.00 2v2=0.00
+--- 1m ef=1000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt1000000  1.22 s  N0=1000000 dim=128 max_level=6
+[mem] base=122.1 MB index=145.7 MB sum=267.8 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_1m.bin（100 x 50）
+[csr] N=1000000 边条目=19999988  内存=80.1 MB (84.0 B/节点)
+[graph] CSR 构建 0.9 s  内存 80.1 MB
+ours tau=0.7 ef=1000 lf=30 recall=0.70000 inf=3010.43 5.3716 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=1000 lf=30 recall=0.80000 inf=2350.25 4.2519 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=1000 lf=30 recall=0.90000 inf=1680.40 3.0544 ms 1v1=5.00 2v2=0.00
+--- 1m ef=2000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt1000000  1.09 s  N0=1000000 dim=128 max_level=6
+[mem] base=122.1 MB index=145.7 MB sum=267.8 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_1m.bin（100 x 50）
+[csr] N=1000000 边条目=19999988  内存=80.1 MB (84.0 B/节点)
+[graph] CSR 构建 0.6 s  内存 80.1 MB
+ours tau=0.7 ef=2000 lf=30 recall=0.70000 inf=3010.31 6.4182 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=2000 lf=30 recall=0.80000 inf=2350.21 5.6355 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=2000 lf=30 recall=0.90000 inf=1680.38 5.0006 ms 1v1=5.00 2v2=0.00
+--- 10m ef=500 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt10000000  11.12 s  N0=10000000 dim=128 max_level=6
+[mem] base=1220.7 MB index=1457.2 MB sum=2677.9 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_10m.bin（100 x 50）
+[csr] N=10000000 边条目=199999978  内存=801.1 MB (84.0 B/节点)
+[graph] CSR 构建 15.0 s  内存 801.1 MB
+ours tau=0.7 ef=500 lf=30 recall=0.70000 inf=3135.76 6.8894 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=500 lf=30 recall=0.79940 inf=2438.38 7.5164 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=500 lf=30 recall=0.89800 inf=1731.74 6.1718 ms 1v1=5.00 2v2=0.00
+--- 10m ef=1000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt10000000  11.50 s  N0=10000000 dim=128 max_level=6
+[mem] base=1220.7 MB index=1457.2 MB sum=2677.9 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_10m.bin（100 x 50）
+[csr] N=10000000 边条目=199999978  内存=801.1 MB (84.0 B/节点)
+[graph] CSR 构建 15.1 s  内存 801.1 MB
+ours tau=0.7 ef=1000 lf=30 recall=0.70000 inf=3135.53 8.3809 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=1000 lf=30 recall=0.80000 inf=2437.13 6.8518 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=1000 lf=30 recall=0.89960 inf=1730.35 5.4072 ms 1v1=5.00 2v2=0.00
+--- 10m ef=2000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt10000000  11.82 s  N0=10000000 dim=128 max_level=6
+[mem] base=1220.7 MB index=1457.2 MB sum=2677.9 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_10m.bin（100 x 50）
+[csr] N=10000000 边条目=199999978  内存=801.1 MB (84.0 B/节点)
+[graph] CSR 构建 14.5 s  内存 801.1 MB
+ours tau=0.7 ef=2000 lf=30 recall=0.70000 inf=3135.55 11.1663 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=2000 lf=30 recall=0.80000 inf=2437.16 9.3508 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=2000 lf=30 recall=0.90000 inf=1730.50 7.7469 ms 1v1=5.00 2v2=0.00
+--- 50m ef=500 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  52.20 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_50m.bin（100 x 50）
+[csr] N=50000000 边条目=999999984  内存=4005.4 MB (84.0 B/节点)
+[graph] CSR 构建 90.3 s  内存 4005.4 MB
+ours tau=0.7 ef=500 lf=30 recall=0.70000 inf=3204.14 10.0232 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=500 lf=30 recall=0.79900 inf=2491.22 7.7655 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=500 lf=30 recall=0.89420 inf=1761.74 5.3155 ms 1v1=5.00 2v2=0.00
+--- 50m ef=1000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  55.14 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_50m.bin（100 x 50）
+[csr] N=50000000 边条目=999999984  内存=4005.4 MB (84.0 B/节点)
+[graph] CSR 构建 89.7 s  内存 4005.4 MB
+ours tau=0.7 ef=1000 lf=30 recall=0.70000 inf=3204.14 12.1529 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=1000 lf=30 recall=0.80000 inf=2489.80 9.9401 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=1000 lf=30 recall=0.89920 inf=1760.83 7.3362 ms 1v1=5.00 2v2=0.00
+--- 50m ef=2000 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  54.67 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_50m.bin（100 x 50）
+[csr] N=50000000 边条目=999999984  内存=4005.4 MB (84.0 B/节点)
+[graph] CSR 构建 88.5 s  内存 4005.4 MB
+ours tau=0.7 ef=2000 lf=30 recall=0.70000 inf=3204.31 16.0406 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=2000 lf=30 recall=0.80000 inf=2489.94 13.5284 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=2000 lf=30 recall=0.90000 inf=1759.79 11.6968 ms 1v1=5.00 2v2=0.00
+--- 100m ef=500 ---
+[mem] cgroup current = 8.3 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx  108.46 s  N0=100000000 dim=128 max_level=6
+[mem] base=12207.0 MB index=14572.2 MB sum=26779.2 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_100m.bin（100 x 50）
+[csr] N=100000000 边条目=1999999978  内存=8010.9 MB (84.0 B/节点)
+[graph] CSR 构建 197.3 s  内存 8010.9 MB
+ours tau=0.7 ef=500 lf=30 recall=0.70000 inf=3230.18 12.4426 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=500 lf=30 recall=0.79740 inf=2503.36 9.8388 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=500 lf=30 recall=0.89360 inf=1770.91 6.7590 ms 1v1=5.00 2v2=0.00
+--- 100m ef=1000 ---
+[mem] cgroup current = 7.9 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx  107.88 s  N0=100000000 dim=128 max_level=6
+[mem] base=12207.0 MB index=14572.2 MB sum=26779.2 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_100m.bin（100 x 50）
+[csr] N=100000000 边条目=1999999978  内存=8010.9 MB (84.0 B/节点)
+[graph] CSR 构建 188.2 s  内存 8010.9 MB
+ours tau=0.7 ef=1000 lf=30 recall=0.70000 inf=3229.78 15.4125 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=1000 lf=30 recall=0.79980 inf=2501.58 12.4389 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=1000 lf=30 recall=0.89720 inf=1768.50 9.2795 ms 1v1=5.00 2v2=0.00
+--- 100m ef=2000 ---
+[mem] cgroup current = 6.9 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx  108.44 s  N0=100000000 dim=128 max_level=6
+[mem] base=12207.0 MB index=14572.2 MB sum=26779.2 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_100m.bin（100 x 50）
+[csr] N=100000000 边条目=1999999978  内存=8010.9 MB (84.0 B/节点)
+[graph] CSR 构建 192.8 s  内存 8010.9 MB
+ours tau=0.7 ef=2000 lf=30 recall=0.70000 inf=3229.75 21.2764 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=2000 lf=30 recall=0.80000 inf=2501.39 17.4135 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=2000 lf=30 recall=0.89980 inf=1767.37 14.6919 ms 1v1=5.00 2v2=0.00
+########## 3. SIFT K=50 无资格约束消融（--elig=degree）##########
+--- 1m elig=degree ---
+[mem] cgroup current = 6.6 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt1000000  1.26 s  N0=1000000 dim=128 max_level=6
+[mem] base=122.1 MB index=145.7 MB sum=267.8 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_1m.bin（100 x 50）
+[csr] N=1000000 边条目=19999988  内存=80.1 MB (84.0 B/节点)
+[graph] CSR 构建 0.8 s  内存 80.1 MB
+ours tau=0.7 ef=300 lf=30 recall=0.69500 inf=3073.50 3.4257 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=300 lf=30 recall=0.79440 inf=2396.50 2.6454 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=300 lf=30 recall=0.89320 inf=1708.61 1.8703 ms 1v1=5.00 2v2=0.00
+--- 10m elig=degree ---
+[mem] cgroup current = 6.6 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt10000000  11.23 s  N0=10000000 dim=128 max_level=6
+[mem] base=1220.7 MB index=1457.2 MB sum=2677.9 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_10m.bin（100 x 50）
+[csr] N=10000000 边条目=199999978  内存=801.1 MB (84.0 B/节点)
+[graph] CSR 构建 15.6 s  内存 801.1 MB
+ours tau=0.7 ef=300 lf=30 recall=0.68360 inf=3199.55 6.1309 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=300 lf=30 recall=0.78180 inf=2488.67 4.6640 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=300 lf=30 recall=0.87940 inf=1761.94 2.9885 ms 1v1=5.00 2v2=0.00
+--- 50m elig=degree ---
+[mem] cgroup current = 6.7 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx.ckpt50000000  61.02 s  N0=50000000 dim=128 max_level=6
+[mem] base=6103.5 MB index=7286.2 MB sum=13389.7 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_50m.bin（100 x 50）
+[csr] N=50000000 边条目=999999984  内存=4005.4 MB (84.0 B/节点)
+[graph] CSR 构建 92.8 s  内存 4005.4 MB
+ours tau=0.7 ef=300 lf=30 recall=0.66760 inf=3275.10 10.3909 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=300 lf=30 recall=0.76400 inf=2542.48 7.1811 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=300 lf=30 recall=0.85960 inf=1796.09 4.6969 ms 1v1=5.00 2v2=0.00
+--- 100m elig=degree ---
+[mem] cgroup current = 6.7 GB
+[u8_io] queries.u8bin                    u8bin   N=100 dim=128 (uint8 原生，无需转换)
+[load-index] idx/sift100m.idx  113.63 s  N0=100000000 dim=128 max_level=6
+[mem] base=12207.0 MB index=14572.2 MB sum=26779.2 MB
+[est] 100M 同口径: base=11.9 GB index=14.2 GB
+[gt] 从缓存加载 idx/gt_50_100m.bin（100 x 50）
+[csr] N=100000000 边条目=1999999978  内存=8010.9 MB (84.0 B/节点)
+[graph] CSR 构建 191.5 s  内存 8010.9 MB
+ours tau=0.7 ef=300 lf=30 recall=0.66820 inf=3302.27 13.1825 ms 1v1=15.00 2v2=0.00
+ours tau=0.8 ef=300 lf=30 recall=0.76420 inf=2558.94 9.3471 ms 1v1=10.00 2v2=0.00
+ours tau=0.9 ef=300 lf=30 recall=0.85940 inf=1801.60 6.1757 ms 1v1=5.00 2v2=0.00
+########## DONE Sat Oct 31 01:41:49 CST 2026 ##########
