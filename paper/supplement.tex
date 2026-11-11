@@ -1,0 +1,451 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\title{Supplementary Material for\\Recall-Constrained Influence-Aware User Retrieval for Product Recommendation}
+\maketitle
+
+% ---------------------------------------------------------------------
+\section*{S1\quad Preliminaries and Framework Details}
+\label{sec:s1}
+
+\textbf{BPR-MF.} BPR-MF learns user and item embeddings from implicit feedback
+by maximising the pairwise ranking objective
+\begin{equation}
+\max_{\Theta}\sum_{(u,i,j)\in D}\ln\sigma\big(\hat{x}_{ui}-\hat{x}_{uj}\big)-\lambda\|\Theta\|^2,
+\qquad \hat{x}_{ui}=\langle p_u,q_i\rangle,
+\end{equation}
+where $(u,i)$ is an observed interaction and $j$ a sampled negative. After row
+normalisation the inner-product ranking coincides with the ranking induced by
+$-\|p_u-q_i\|^2$, so an L2 index is the correct retrieval structure for these
+embeddings.
+
+\textbf{HNSW.} HNSW organises vectors into a hierarchy
+of proximity graphs. A query descends greedily through the upper layers and then
+runs a breadth-bounded search at level $0$, controlled by $\mathit{ef}$. The
+returned list is approximate and its recall increases monotonically with
+$\mathit{ef}$, which is why a high-$\mathit{ef}$ result serves as a proxy for
+exact retrieval in Section IV-B of the main text.
+
+\textbf{Influence maximization.} Given $G$ and a diffusion model, the task is to
+select $K$ seeds maximising the expected number of reached nodes. The objective
+is monotone and submodular, so greedy selection attains a $(1-1/e)$
+approximation, and CELF accelerates it by lazy evaluation.
+Our objective differs in two respects: coverage is counted over one hop, and the
+seed set must satisfy a retrieval constraint.
+
+\textbf{Offline and online stages.} Offline, the framework reuses the existing
+HNSW index, stores the social graph in compressed sparse row form, and
+materialises a degree-ordered user list. Online, the candidate-pool module emits
+a pool that already contains influential users, the replacement module exchanges
+eligible anchors of the similarity Top-$K$, and the balance module bounds every
+exchange by the recall floor.
+
+% ---------------------------------------------------------------------
+\section*{S2\quad Complete Notation Table}
+\label{sec:s2}
+Table~\ref{tab:s2} lists every symbol used in the main text and in this
+supplement, grouped by the part of the framework it belongs to.
+
+\begin{table}[h]
+\caption{Complete notation, grouped by the part of the framework it belongs to.}
+\label{tab:s2}
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Symbol} & \textbf{Description} \\
+\hline
+\multicolumn{2}{|l|}{\textit{Sets and graph}} \\
+\hline
+$U$, $I$ & user set and item set \\
+$V$, $E$ & node set and edge set of the social graph \\
+$G=(V,E)$ & undirected social graph \\
+$N(v)$ & one-hop neighbour set of user $v$ \\
+$\bar{d}$ & average degree of $G$ \\
+\hline
+\multicolumn{2}{|l|}{\textit{Representation and retrieval}} \\
+\hline
+$p_u$, $q_i$ & embedding of user $u$ and item $i$ \\
+$d$ & embedding dimension \\
+$q$ & query item vector \\
+$d(u,q)$ & L2 distance between user $u$ and query $q$ \\
+$\mathit{ef}$ & HNSW search breadth \\
+$M$, $M_0$ & HNSW connectivity and its level-0 value \\
+$NN_K(q)$ & exact Top-$K$ nearest neighbours of $q$ \\
+$K$ & number of seed users to return \\
+\hline
+\multicolumn{2}{|l|}{\textit{Objective and constraint}} \\
+\hline
+$S$ & returned seed user set, $|S|=K$ \\
+$f(S)$ & one-hop coverage, $|\bigcup_{v\in S}N(v)|$ \\
+$\text{Recall@}K(S)$ & $|S\cap NN_K(q)|/K$ \\
+$\tau$ & recall floor specified by the campaign \\
+$S_{\text{proxy}}$ & proxy truth set obtained by ANN search \\
+$\text{min\_overlap}$ & required overlap with $S_{\text{proxy}}$, $\lceil K\tau\rceil$ \\
+$\text{slack}$ & $\text{current\_overlap}-\text{min\_overlap}$ \\
+$I(\cdot)$ & indicator function \\
+\hline
+\multicolumn{2}{|l|}{\textit{Scoring and replacement}} \\
+\hline
+$\alpha$, $A$ & dynamic balancing weight and its maximum \\
+$P$ & retrieval progress, $|C|/\mathit{ef}$ \\
+$C$ & candidate set collected during retrieval \\
+$\mathit{inf}(v,C)$ & marginal coverage gain of $v$ over $C$ \\
+$\epsilon$ & distance slack of the hard threshold $\lambda$ \\
+$\lambda$ & hard distance threshold, $D_{\text{bound}}(1+\epsilon)$ \\
+$\theta$ & soft threshold of the replacement rule \\
+$\beta$ & scale factor of $\theta$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+% ---------------------------------------------------------------------
+\section*{S3\quad Candidate-Pool Retrieval}
+\label{sec:s3}
+
+\textbf{Why static degree is insufficient.} Degree ignores coverage overlap, so
+high-degree users that share followers are all scored highly; it does not change
+as the retrieval proceeds, so a node can keep attracting budget after its
+neighbours are covered; and it is unrelated to matching quality, so admitting it
+early pulls the search path out of the high-matching region. The marginal
+coverage gain, evaluated against the collected set $C$,
+\begin{equation}
+\mathit{inf}(v,C)=\Big|N(v)\setminus\bigcup_{u\in C}N(u)\Big|,
+\end{equation}
+addresses all three.
+
+\textbf{Dynamic $\alpha$.} The first design switched $\alpha$ from $0$ to $A$
+once the pool was full, which destabilises the search path. Making $\alpha$ a
+function of the progress $P=|C|/\mathit{ef}$ removes the jump. Four schedules
+were compared: step, linear $\alpha=A\cdot P$, quadratic $\alpha=A\cdot P^{2}$,
+and a threshold schedule that stays at zero for the first half of the progress.
+Table~\ref{tab:s3-alpha} reports the comparison.
+
+\begin{table}[h]
+\caption{Different $\alpha(P)$ schedules (SIFT1M, $A{=}100$, $K{=}10$,
+$\mathit{ef}{=}100$).}
+\label{tab:s3-alpha}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Schedule} & \textbf{Recall@10} & \textbf{Avg. Inf.} & \textbf{Lat. (ms)} \\
+\hline
+Step      & 0.829 & 394.24 & 3.026 \\
+Linear    & 0.848 & \textbf{403.09} & 2.289 \\
+Quadratic & \textbf{0.849} & 395.42 & 2.202 \\
+Threshold & 0.845 & 395.66 & 2.194 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+All three continuous schedules outperform the step schedule, and the linear
+schedule gives the highest coverage while keeping recall at 0.848 and latency at
+2.289\,ms. It is therefore used throughout: early in the traversal $\alpha$ is
+near zero and distance dominates, which preserves the navigation path; late in
+the traversal $\alpha$ reaches $A$ and coverage decides, which enlarges the
+influence potential of the pool.
+
+\textbf{Amplitude.} Table~\ref{tab:s3-A} varies the amplitude of the linear
+schedule.
+
+\begin{table}[h]
+\caption{Different $A$ values (SIFT1M, $K{=}10$, $\mathit{ef}{=}100$).}
+\label{tab:s3-A}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{$A$} & \textbf{Recall@10} & \textbf{Avg. Inf.} & \textbf{Lat. (ms)} \\
+\hline
+0   & \textbf{0.987} & 292.62 & 2.159 \\
+10  & 0.971 & 294.87 & 1.997 \\
+50  & 0.920 & 322.06 & 2.046 \\
+100 & 0.832 & 396.42 & 2.231 \\
+200 & 0.575 & 677.95 & 2.346 \\
+300 & 0.339 & \textbf{945.21} & 2.464 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Recall decreases and coverage increases monotonically with $A$ while latency
+stays between 2.0 and 2.5\,ms, so the amplitude moves the operating point
+without changing the cost of the traversal. It is the quantity that the
+query-level adaptive mechanism adjusts at run time.
+
+\textbf{Workflow.} The upper layers are traversed by pure physical greedy
+navigation. At level $0$ the entry node initialises the visited array, a
+candidate min-heap keyed by hybrid score, a result max-heap, and a hash table of
+covered neighbours. Each iteration pops the lowest-score node, computes $P$ and
+$\alpha$, and evaluates the marginal gain of every unvisited neighbour; a
+neighbour is admitted only if the result heap is not full or its score beats the
+current worst. Admission increments the neighbour counters and eviction
+decrements them, so the coverage state always reflects the current set. The
+search stops when the candidate heap is empty, or when the best candidate is
+worse than the worst result while the result heap is full.
+
+% ---------------------------------------------------------------------
+\section*{S4\quad Hierarchical Iterative Replacement}
+\label{sec:s4}
+
+\textbf{\texttt{1v1} rule.} The initial set $S$ is the HNSW Top-$K$ and
+$D_{\text{bound}}$ is its largest distance. A candidate is admissible only if
+$d_C\le\lambda$ with $\lambda=D_{\text{bound}}(1+\epsilon)$. For an admissible
+candidate and a seed $V\in S$,
+\begin{equation}
+\text{Gain}(C)=\Big|N(C)\setminus\bigcup_{u\in S}N(u)\Big|,
+\end{equation}
+\begin{equation}
+\text{Loss}(V)=\Big|\big\{w\in N(V):w\notin\bigcup_{u\in S\setminus\{V\}}N(u)\big\}\Big|,
+\end{equation}
+and the exchange is accepted when the candidate is no farther and adds coverage,
+or when
+\begin{equation}
+\frac{\text{Gain}(C)-\text{Loss}(V)}{d_C-d_V}>\theta,
+\end{equation}
+\begin{equation}
+\theta=\beta\cdot\frac{\mathrm{avg}(\text{Degree})}{\mathrm{avg}(\text{Dist})}.
+\end{equation}
+
+\textbf{Oversampling.} $3K$ candidates are fetched; the first $K$ form the
+initial set and the remaining $2K$ enter the queue after the same filter
+$\lambda$, which gives the stage access to users outside the physical
+neighbourhood.
+
+\textbf{\texttt{2v2} fallback.} When no single swap is accepted, the two seeds
+with the smallest marginal loss are removed and replaced by the candidate with
+the largest marginal gain together with the unselected candidate closest to the
+query. The acceptance test is unchanged.
+
+\begin{table}[h]
+\caption{Effect of $\beta$ on the three levels (SIFT1M, $K{=}10$,
+$\epsilon{=}0.2$).}
+\label{tab:s4-beta}
+\begin{center}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+& \multicolumn{3}{c|}{\texttt{1v1}} & \multicolumn{3}{c|}{+OS} & \multicolumn{3}{c|}{+OS+\texttt{2v2}} \\
+\cline{2-10}
+$\beta$ & Rec. & Inf. & Lat. & Rec. & Inf. & Lat. & Rec. & Inf. & Lat. \\
+\hline
+0.2 & 0.067 & 1172.16 & 60.05 & 0.067 & 1178.43 & 59.86 & 0.074 & \textbf{1206.55} & 114.78 \\
+0.5 & 0.116 & 1105.05 & 43.80 & 0.112 & 1112.96 & 46.86 & 0.124 & \textbf{1157.15} & 87.40 \\
+0.8 & 0.149 & 1055.01 & 36.86 & 0.136 & 1074.11 & 40.68 & 0.154 & \textbf{1104.04} & 71.28 \\
+1   & 0.168 & 1014.85 & 33.48 & 0.148 & 1062.96 & 37.12 & 0.175 & \textbf{1082.50} & 63.51 \\
+2   & 0.293 & 848.11  & 22.90 & 0.259 & 890.26  & 25.18 & 0.305 & \textbf{926.65}  & 42.96 \\
+5   & 0.544 & 617.16  & 13.56 & 0.519 & 638.40  & 14.08 & 0.537 & \textbf{660.38}  & 25.99 \\
+10  & 0.768 & 399.72  & 7.14  & 0.748 & 406.78  & 7.97  & 0.736 & \textbf{421.95}  & 14.51 \\
+20  & 0.909 & 324.65  & 4.70  & 0.888 & 348.58  & 5.51  & 0.883 & \textbf{370.66}  & 10.22 \\
+50  & 0.963 & 306.72  & 4.50  & 0.956 & 312.00  & 4.69  & 0.956 & \textbf{312.00}  & 8.25 \\
+100 & 0.980 & 294.86  & 4.28  & 0.976 & 296.01  & 4.52  & 0.976 & \textbf{296.01}  & 8.05 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Coverage increases strictly with the number of levels at every $\beta$, while
+recall stays within 0.02 of the \texttt{1v1} level, so the two optimisations
+raise the reachable coverage rather than shifting the recall--coverage curve.
+Latency grows with the number of accepted replacements. Small $\beta$ makes the
+soft threshold permissive and recall falls to 0.07; $\beta{=}100$ leaves almost
+no room for replacement and the result approaches the plain ANN baseline. The
+main text uses $\beta{=}20$; in the complete framework the permitted amount of
+replacement is derived from the remaining slack instead.
+
+% ---------------------------------------------------------------------
+\section*{S5\quad End-to-End Procedure}
+\label{sec:s5}
+
+Algorithm~\ref{alg:s5} expands Algorithm~1 of the main text: it makes the state
+shared by the three modules explicit and states the termination condition of the
+replacement loop. The invariant that follows explains why the recall floor
+cannot be violated.
+\algrenewcommand\algorithmicrequire{\textbf{Require:}}
+\begin{algorithm*}[t]
+\caption{Recall-constrained influence-aware retrieval (expanded)}
+\label{alg:s5}
+\begin{algorithmic}[1]
+\Require $q$, $K$, $\tau$, $\mathit{ef}$, $A$
+\Ensure $S$ with $|S|=K$ and $|S\cap S_{\text{proxy}}|\ge\lceil K\tau\rceil$
+\State $S_{\text{proxy}}\leftarrow\textsc{Ann}(q,K,\mathit{ef})$; \ $S\leftarrow S_{\text{proxy}}$
+\State $m\leftarrow\lceil K\tau\rceil$; \ $\mathit{cov}\leftarrow\textsc{Counters}(S)$
+\State $C\leftarrow$ hybrid-guided retrieval with dynamic $\alpha$ (S3)
+\State $Q\leftarrow\{c\in C: d(c,q)\le\lambda\}$
+\Repeat
+  \State $v^\ast\leftarrow$ farthest eligible anchor of $S$
+  \State $c^\ast\leftarrow\arg\max_{c\in Q}\text{Gain}(c)$
+  \If{$\text{slack}(S)>0$ \textbf{and} $\textsc{Verify}(v^\ast,c^\ast)$}
+     \State $S\leftarrow S\setminus\{v^\ast\}\cup\{c^\ast\}$; update $\mathit{cov}$
+  \ElsIf{no admissible \texttt{1v1} exchange}
+     \State try one \texttt{2v2} exchange; accept if coverage increases
+  \Else
+     \State \textbf{break}
+  \EndIf
+\Until{no further improvement}
+\Return $S$
+\end{algorithmic}
+\end{algorithm*}
+
+\textbf{Invariant.} Let $\mathit{ov}(S)=|S\cap S_{\text{proxy}}|$. Initially
+$\mathit{ov}(S)=K\ge m$. An exchange is executed only when \textsc{Verify}
+accepts it, and \textsc{Verify} rejects any exchange for which
+\begin{equation}
+\mathit{ov}'=\mathit{ov}-I(v^\ast\in S_{\text{proxy}})+I(c^\ast\in S_{\text{proxy}})
+\end{equation}
+falls below $m$; the \texttt{2v2} fallback exchanges non-anchor members only and
+therefore leaves $\mathit{ov}(S)$ unchanged. Every reachable state satisfies the
+invariant, so the returned set meets the floor by construction. The invariant is
+stated against the proxy set, whose relation to exact neighbours is governed by
+the recall of the ANN search; this is why the proxy is calibrated offline
+against brute-force ground truth in the main text. The loop terminates because
+each accepted exchange increases coverage, coverage is bounded by $|V|$, and the
+number of accepted exchanges per query is bounded by $|C|$.
+
+% ---------------------------------------------------------------------
+\section*{S6\quad Datasets, Preprocessing and Baselines}
+\label{sec:s6}
+
+\textbf{SIFT.} 128-dimensional uint8 descriptors, four prefixes of 1M, 10M, 50M
+and 100M vectors sharing one social graph (average degree 10) and one set of 100
+queries. Squared L2 distances over uint8 are integers below $2^{24}$, so the
+integer and floating-point pipelines give bit-identical results. Ground truth is
+computed by brute force over the full corpus.
+
+\textbf{CiaoDVD.} 16{,}043 users, 12{,}787 items and their trust relations; we
+keep ratings above 3.5, build a leave-one-out split, and learn 64-dimensional
+BPR-MF embeddings with 20 epochs, learning rate 0.05 and regularisation
+$10^{-4}$. After projection onto users carrying at least one trust edge, the
+graph has 2{,}310 nodes and 21{,}400 undirected edges. Queries are items,
+candidates are users, and relevance is the exact $K$-nearest users of the item
+embedding.
+
+\textbf{KuaiRand-1K.} 1{,}000 users, 7{,}388 candidate videos, 40{,}726
+training impressions, 10{,}316 calibration impressions, 43{,}028 random-exposure
+test impressions, and a video co-click graph with 67{,}301 edges. For each
+impression a matching score is computed, candidates are sorted, and CTR@10, AUC
+and Logloss are measured against the real click labels.
+
+\textbf{Baselines.} \emph{HNSW} returns the Top-$K$ of the graph index with
+$\mathit{ef}{=}300$ and receives no influence signal. \emph{Degree-greedy}
+runs the same replacement with the same pool, oversampled queue, $\beta$ and
+floor, and differs only in replacing the lowest-degree eligible anchor instead
+of the farthest one. \emph{CELF-near} maximises one-hop coverage over the
+physical neighbours of the query; \emph{CELF-global} does the same over the whole
+user set without a retrieval constraint.
+
+\textbf{Execution environment.} A single node with 16 vCPUs and 60\,GB of memory.
+The index is built serially (\texttt{OMP\_NUM\_THREADS=1}) so that the
+construction trajectory is deterministic, and queries are issued one at a time.
+The implementation is C++17, compiled with \texttt{g++ 11.2} at
+\texttt{-O3 -march=native}, with $M{=}16$ and
+$\mathit{ef}_{\text{construction}}{=}200$. No GPU is used.
+
+% ---------------------------------------------------------------------
+\section*{S7\quad Complete Module Ablation}
+\label{sec:s7}
+
+Table~\ref{tab:s7-a} reports the replacement module built up component by
+component, and Table~\ref{tab:s7-b} compares each single module with the fused
+two-stage framework.
+
+\begin{table}[h]
+\caption{Replacement module built up incrementally (SIFT1M, $K{=}10$,
+$\beta{=}20$).}
+\label{tab:s7-a}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Configuration} & \textbf{Recall@10} & \textbf{Avg. Inf.} & \textbf{Lat. (ms)} \\
+\hline
+Initial $K$ + basic \texttt{1v1} & \textbf{0.909} & 354.65 & 4.70 \\
++ oversampled pool              & 0.888 & 368.58 & 5.51 \\
++ \texttt{2v2} fallback          & 0.883 & \textbf{370.66} & 10.22 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\caption{Single modules versus the fused framework (SIFT1M, $K{=}10$,
+$A{=}200$, $\beta{=}20$).}
+\label{tab:s7-b}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Configuration} & \textbf{Recall@10} & \textbf{Avg. Inf.} & \textbf{Lat. (ms)} \\
+\hline
+Hybrid-score retrieval only & 0.594 & \textbf{688.02} & 16.83 \\
+Replacement only            & 0.883 & 370.66 & 10.22 \\
+Full two-stage framework    & 0.818 & 436.25 & \textbf{12.01} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Oversampling raises coverage by 3.9\% for a 2.3\% recall loss and 0.81\,ms of
+latency, since the extra candidates are the influential users the physical
+Top-$K$ lacks. The \texttt{2v2} fallback adds 0.56\% with almost no recall loss,
+because it can leave states in which no single swap helps. In the fused
+framework, the retrieval-only variant reaches the highest coverage (688.02) but
+collapses recall to 0.594, while the replacement-only variant keeps recall at
+0.883 but stalls at 370.66; the fused framework sits between them (0.818,
+436.25) and has the lowest latency of the three, since the first stage already
+filters the pool the second stage examines.
+
+% ---------------------------------------------------------------------
+\section*{S8\quad Influence-Maximisation Baselines}
+\label{sec:s8}
+
+\begin{table}[h]
+\caption{Comparison with influence-maximisation baselines.}
+\label{tab:s8}
+\begin{center}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+& \multicolumn{2}{c|}{CELF-near} & \multicolumn{2}{c|}{CELF-global} & \multicolumn{2}{c|}{Ours} \\
+\cline{2-7}
+\textbf{Setting} & Rec. & Inf. & Rec. & Inf. & Rec. & Inf. \\
+\hline
+SIFT 1M, $K{=}10$   & 0.490 & 240.50  & 0.000 & 1546.0 & \textbf{0.700} & \textbf{612.29} \\
+SIFT 1M, $K{=}50$   & 0.499 & 1162.78 & 0.000 & 7511.0 & \textbf{0.700} & \textbf{3011.70} \\
+SIFT 100M, $K{=}10$ & 0.488 & 252.27 & 0.000 & 1652.0 & \textbf{0.699} & \textbf{662.28} \\
+SIFT 100M, $K{=}50$ & 0.459 & 1190.53 & 0.000 & 8219.0 & \textbf{0.698} & \textbf{3229.45} \\
+CiaoDVD, $K{=}10$   & 0.630 & 47.88   & 0.000 & 720.0  & \textbf{0.700} & \textbf{413.44} \\
+CiaoDVD, $K{=}20$   & 0.684 & 85.48   & 0.002 & 981.0  & \textbf{0.700} & \textbf{574.52} \\
+CiaoDVD, $K{=}50$   & 0.727 & 190.00  & 0.004 & 1427.0 & \textbf{0.701} & \textbf{877.90} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The two variants fail in opposite directions. CELF-global reaches 8219 coverage
+at $K{=}50$ on SIFT but returns a set that depends on the graph alone, so its
+recall is indistinguishable from zero. CELF-near keeps recall between 0.46 and
+0.73 but its coverage is an order of magnitude below ours (240.50 against
+612.29 at $K{=}10$), because the physical neighbours of an item are selected for
+similarity and rarely contain influential users. The proposed framework is the
+only configuration that satisfies a recall floor while improving coverage over
+the retrieval-only baseline.
+
+\bibliographystyle{IEEEtran}
+
+\end{document}
